@@ -14,6 +14,10 @@ k 是一个正整数，它的值小于或等于链表的长度。
     当 k = 3 时，应当返回: 3->2->1->4->5
 
 
+== 题解
+- 递归
+- 尾插法
+- python 和 golang 版参见各自的目录
 
 == 参考
 https://leetcode-cn.com/problems/shttps://leetcode-cn.com/problems/reverse-nodes-in-k-group/
