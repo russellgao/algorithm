@@ -21,9 +21,9 @@ def heapify(lists, i, llen):
     largest = i
     left = 2 * i + 1
     right = 2 * i + 2
-    if left < llen and lists[left] > largest:
+    if left < llen and lists[left] > lists[largest]:
         largest = left
-    if right < llen and lists[right] > largest:
+    if right < llen and lists[right] > lists[largest]:
         largest = right
     if largest != i :
         swap(lists, i, largest)
