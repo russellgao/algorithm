@@ -5,9 +5,12 @@ type ListNode struct {
     Next *ListNode
 }
 
-// 方法二 
+// 方法一
+// 递归
+
+// 方法二
 // 迭代
-func reverseBetween(head *ListNode, m int, n int) *ListNode {
+func reverseBetween2(head *ListNode, m int, n int) *ListNode {
     if head == nil {
         return nil
     }
