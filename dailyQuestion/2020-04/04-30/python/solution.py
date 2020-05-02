@@ -83,5 +83,5 @@ if __name__ == '__main__':
     node.next.next = ListNode(3)
     node.next.next.next = ListNode(4)
     node.next.next.next.next = ListNode(5)
-    result = reverseBetween2(node, 2,4)
+    result = reverseBetween1(node, 2,4)
     print()
