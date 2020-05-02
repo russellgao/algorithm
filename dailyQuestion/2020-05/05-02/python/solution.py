@@ -39,7 +39,7 @@ def reorderList(head: ListNode) -> None:
         newhead = newhead_next
 
 # 方法二 递归法
-def reorderList_recursion(self, head: ListNode) -> None:
+def reorderList_recursion(head: ListNode) -> None:
     """
     Do not return anything, modify head in-place instead.
     """
