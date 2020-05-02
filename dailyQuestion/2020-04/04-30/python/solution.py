@@ -19,6 +19,23 @@ def reverseBetween1(head, m, n) :
     :type n: int
     :rtype: ListNode
     """
+    # 定义后驱节点
+    successor = None
+
+    def reverseN(head, n):
+        nonlocal successor
+        if n == 1:
+            successor = head.next
+            return head
+        last = reverseN(head.next, n - 1)
+        head.next.next = head
+        head.next = successor
+        return last
+
+    if m == 1:
+        return reverseN(head, n)
+    head.next = reverseBetween1(head.next, m - 1, n - 1)
+    return head
 
 
 # =============================================
