@@ -16,9 +16,9 @@ def findMedianSortedArrays(nums1, nums2):
     while imin <= imax:
         i = (imin + imax) >> 1
         j = half_m_n - i
-        if imin < m and nums1[i] < nums2[j - 1]:
+        if i < m and nums1[i] < nums2[j - 1]:
             imin = i + 1
-        elif imax > 0 and nums1[i - 1] > nums2[j]:
+        elif i > 0 and nums1[i - 1] > nums2[j]:
             imax = i - 1
         else:
             # 找到复合条件的i
