@@ -1,0 +1,179 @@
+= 排序
+:toc:
+:toc-title: 目录
+
+总结常见的排序算法
+
+== 各个排序算法比较
+
+=== 冒泡排序
+该算法的核心思想是将无序表中的所有记录，通过两两比较关键字，得出升序序列或者降序序列
+
+其时间复杂度同实际表中数据的无序程度有关。若表中记录本身为正序存放，则整个排序过程只需进行 n-1（n 为表中记录的个数）次比较，且不需要移动记录；若表中记录为逆序存放（最坏的情况），则需要 n-1趟排序，进行 n(n-1)/2 次比较和数据的移动。所以该算法的时间复杂度为O(n2)
+
+```go
+// 冒泡排序
+func bubble_sort(list []int) {
+	for i := 0; i < len(list); i++ {
+		for j := i; j < len(list); j++ {
+			if list[i] > list[j] {
+				list[i], list[j] = list[j], list[i]
+			}
+		}
+	}
+}
+
+```
+
+=== 快速排序
+==== 基本思想
+通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。
+
+==== 基数选择
+由于快速排序需要选定一个基数进行划分排序，关于基数选择有很多方式，而基数选择直接关系到快排的效率。事实上，选取基准元素应该遵循平衡子问题的原则：即使得划分后的两个子序列的长度尽量相同本篇以待排序数组首元素作为基数进行说明。
+==== 代码
+
+```go
+// 快速排序
+func quick_sort(list []int) {
+	sort(list, 0, len(list)-1)
+}
+
+// 定义递归函数
+func sort(list []int, left, right int) {
+	if left < right {
+		// 取基数为第一个值
+		key := list[left]
+
+		// 左右指针
+		i := left
+		j := right
+		for i < j {
+
+			// 寻找复合条件的一个交换，即右边小于key，左边大于key
+			for i < j && list[j] >= key {
+				j--
+			}
+			for i < j && list[i] <= key {
+				i++
+			}
+			list[i], list[j] = list[j], list[i]
+		}
+		// 把第一个基数交换到i位置，使得左边都小于key ，右边都大于k
+		list[left], list[i] = list[i], list[left]
+		// 对左边进行快排
+		sort(list, left, i-1)
+		// 对右边尽心快排
+		sort(list, i+1, right)
+	}
+}
+```
+
+快速排序是在冒泡排序的基础上改进而来的，冒泡排序每次只能交换相邻的两个元素，而快速排序是跳跃式的交换，交换的距离很大，因此总的比较和交换次数少了很多，速度也快了不少。
+
+但是快速排序在最坏情况下的时间复杂度和冒泡排序一样，是 O(n2)，实际上每次比较都需要交换，但是这种情况并不常见。我们可以思考一下如果每次比较都需要交换，那么数列的平均时间复杂度是 O(nlogn)，事实上在大多数时候，排序的速度要快于这个平均时间复杂度。这种算法实际上是一种分治法思想，也就是分而治之，把问题分为一个个的小部分来分别解决，再把结果组合起来。
+
+快速排序只是使用数组原本的空间进行排序，所以所占用的空间应该是常量级的，但是由于每次划分之后是递归调用，所以递归调用在运行的过程中会消耗一定的空间，在一般情况下的空间复杂度为 O(logn)，在最差的情况下，若每次只完成了一个元素，那么空间复杂度为 O(n)。所以我们一般认为快速排序的空间复杂度为 O(logn)。
+
+快速排序是一个不稳定的算法，在经过排序之后，可能会对相同值的元素的相对位置造成改变。
+
+快速排序基本上被认为是相同数量级的所有排序算法中，平均性能最好的。
+
+=== 归并排序
+归并排序（MERGE-SORT）是利用归并的思想实现的排序方法，该算法采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解，而治(conquer)的阶段则将分的阶段得到的各答案"修补"在一起，即分而治之)。
+
+```go
+// 归并排序
+func merge_sort(list []int) []int {
+	if len(list) == 1 {
+		return list
+	}
+	mid := len(list) >> 1
+	left := merge_sort(list[:mid])
+	right := merge_sort(list[mid:])
+	return merge(left, right)
+}
+
+// 合并两个有序数组
+func merge(list1, list2 []int) []int {
+	tmp := []int{}
+	i, j := 0, 0
+	for i < len(list1) && j < len(list2) {
+		if list1[i] < list2[j] {
+			tmp = append(tmp, list1[i])
+			i += 1
+		} else {
+			tmp = append(tmp, list2[j])
+			j += 1
+		}
+	}
+	if i == len(list1) {
+		tmp = append(tmp, list2[j:]...)
+	} else if j == len(list2) {
+		tmp = append(tmp, list1[i:]...)
+	}
+	return tmp
+}
+```
+
+
+归并排序是稳定排序，它也是一种十分高效的排序，能利用完全二叉树特性的排序一般性能都不会太差。java中Arrays.sort()采用了一种名为TimSort的排序算法，就是归并排序的优化版本。从上文的图中可看出，每次合并操作的平均时间复杂度为O(n)，而完全二叉树的深度为|log2n|。总的平均时间复杂度为O(nlogn)。而且，归并排序的最好，最坏，平均时间复杂度均为O(nlogn)。
+
+=== 堆排序
+堆排序是利用堆这种数据结构而设计的一种排序算法，堆排序是一种选择排序，它的最坏，最好，平均时间复杂度均为O(nlogn)，它也是不稳定排序。
+
+==== 基本思想
+将待排序序列构造成一个大顶堆，此时，整个序列的最大值就是堆顶的根节点。将其与末尾元素进行交换，此时末尾就为最大值。然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。如此反复执行，便能得到一个有序序列了
+
+```python
+def heapify(lists, i, llen):
+    """
+    堆化
+    :param lists:
+    :param i:
+    :return:
+    """
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+    if left < llen and lists[left] > lists[largest]:
+        largest = left
+    if right < llen and lists[right] > lists[largest]:
+        largest = right
+    if largest != i :
+        swap(lists, i, largest)
+        heapify(lists, largest, llen)
+
+
+def swap(lists, i, j):
+    """
+    交换列表中的两个元素
+    :param lists:
+    :param i:
+    :param j:
+    :return:
+    """
+    lists[i], lists[j] = lists[j], lists[i]
+
+
+def heapSort(lists):
+    """
+    堆排序，从小到大进行排序
+
+    需要构造一个最大堆，然后首位交换，然后lists 的长度-1， 重复这个过程，直至lists中只剩一个元素
+
+    :param lists:
+    :return:
+    """
+    llen = len(lists)
+    buildMaxHeap(lists)
+    for i in range(len(lists)-1, 0, -1):
+        swap(lists, 0, i)
+        llen -= 1
+        heapify(lists, 0, llen)
+    return lists
+```
+
+== 排序算法的稳定性
+假定在待排序的记录序列中，存在多个具有相同的关键字的记录，若经过排序，这些记录的相对次序保持不变，即在原序列中，r[i]=r[j]，且r[i]在r[j]之前，而在排序后的序列中，r[i]仍在r[j]之前，则称这种排序算法是稳定的；否则称为不稳定的。
+
