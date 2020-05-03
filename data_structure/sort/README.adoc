@@ -1,5 +1,5 @@
 = 排序
-:toc:
+:toc: right
 :toc-title: 目录
 
 总结常见的排序算法
