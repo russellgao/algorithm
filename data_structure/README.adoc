@@ -1,11 +1,18 @@
-== 常用数据结构介绍
+= 常用数据结构介绍
+gaoweizong <russellgao@gmail.com>
+:toc: right
+:toc-title: 目录
 
-=== 堆
+
+== 堆
 link:heap[]
 
-=== 递归
+== 递归
 link:recursion[]
 
-=== 迭代
+== 迭代
 link:iterate[]
+
+== 二分法
+link:dichotomy[]
 
