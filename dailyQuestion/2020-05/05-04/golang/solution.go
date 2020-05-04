@@ -25,3 +25,30 @@ func jump(nums []int) int {
 	}
 	return steps
 }
+
+
+// 方法二
+// 正向寻找，通过局部最优达到全局最优
+func jump_2(nums []int) int {
+	length := len(nums)
+	end := 0
+	maxPosition := 0
+	steps := 0
+	for i := 0; i < length-1; i++ {
+		// 当前位置和吓一跳可以跳到的最远位置
+		maxPosition = max(maxPosition, i+nums[i])
+		// 判断是否到了下一次跳跃的时候
+		if i == end {
+			end = maxPosition
+			steps++
+		}
+	}
+	return steps
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
