@@ -18,3 +18,6 @@ link:dichotomy[]
 
 == 排序
 link:sort[]
+
+== 贪心
+link:greedy[]
