@@ -21,3 +21,6 @@ link:sort[]
 
 == 贪心
 link:greedy[]
+
+== 动态规划
+link:dynamicProgramming[]
