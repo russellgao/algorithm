@@ -24,3 +24,6 @@ link:greedy[]
 
 == 动态规划
 link:dynamicProgramming[]
+
+== 二叉查找数
+link:binarySearchTree[]
