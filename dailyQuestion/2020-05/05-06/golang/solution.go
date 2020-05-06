@@ -24,6 +24,10 @@ func main() {
 	sum := maxSumBST(node)
 	fmt.Println(sum)
 }
+
+// 后续遍历
+// 左右节点为root时 若均符合， 如果该节点与左右节点值也符合， 那么继续向上层返回true, 以及sum
+// 注意 子节点为nil，以及不符合要求的情况
 func maxSumBST(root *TreeNode) int {
 	result := 0
 	helper(root, &result)
