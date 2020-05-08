@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -7,9 +9,15 @@ type TreeNode struct {
 }
 
 func main() {
-
+	matrix := [][]byte{
+		[]byte{'1', '0', '1', '0', '0'},
+		[]byte{'1', '0', '1', '1', '1'},
+		[]byte{'1', '1', '1', '1', '1'},
+		[]byte{'1', '0', '0', '1', '0'},
+	}
+	result := maximalSquare(matrix)
+	fmt.Println(result)
 }
-
 
 // 动态规划
 func maximalSquare(matrix [][]byte) int {
