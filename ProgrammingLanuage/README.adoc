@@ -1,0 +1,12 @@
+= 编程语言精华
+:toc:
+:toc-title: 目录
+:toclevels: 5
+:sectnums:
+
+== 说明
+此目录下整理各个编程语言的特性，用法，经典类库
+
+- link:golang[]
+- link:python[]
+

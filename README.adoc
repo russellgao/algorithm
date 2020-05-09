@@ -1,8 +1,10 @@
 = 常用算法
 
 == 组成
-- link:data_structure[] 数据结构与算法详解
-- link:dailyQuestion[] 每日一题
+- link:data_structure[数据结构与算法详解]
+- link:dailyQuestion[每日一题]
+- link:ProgrammingLanuage[编程语言精华]
+
 
 == 环境
 - python3.8
