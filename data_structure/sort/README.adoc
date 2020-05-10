@@ -1,6 +1,8 @@
 = 排序
 :toc: right
 :toc-title: 目录
+:toclevels: 5
+:sectnums:
 
 总结常见的排序算法
 
@@ -39,6 +41,7 @@ func bubble_sort(list []int) {
 
 ==== 基数选择
 由于快速排序需要选定一个基数进行划分排序，关于基数选择有很多方式，而基数选择直接关系到快排的效率。事实上，选取基准元素应该遵循平衡子问题的原则：即使得划分后的两个子序列的长度尽量相同本篇以待排序数组首元素作为基数进行说明。
+
 ==== 代码
 
 ```go
@@ -71,7 +74,7 @@ func sort(list []int, left, right int) {
 		list[left], list[i] = list[i], list[left]
 		// 对左边进行快排
 		sort(list, left, i-1)
-		// 对右边尽心快排
+		// 对右边进行快排
 		sort(list, i+1, right)
 	}
 }
