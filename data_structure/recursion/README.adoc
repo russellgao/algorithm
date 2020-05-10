@@ -14,12 +14,12 @@
 
 用递归调用的方法把字符串进行反转
 
-```
+```python
 
 def reverseString(str1) :
     """
     用递归的方法反转字符串
-    :param list1: 字符串也数组的形式给出
+    :param str1: 字符串也数组的形式给出
     :return:
     """
     if not str1 :
