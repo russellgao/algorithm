@@ -20,4 +20,4 @@ k 是一个正整数，它的值小于或等于链表的长度。
 - python 和 golang 版参见各自的目录
 
 == 参考
-https://leetcode-cn.com/problems/shttps://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
