@@ -14,7 +14,7 @@ def reverseKGroup1(head: ListNode, k: int) -> ListNode:
         count += 1
     if count == k:
         # 以k个进行递归
-        cur = reverseKGroup(cur, k)
+        cur = reverseKGroup1(cur, k)
         while count:
             # 在k个单位内进行反转
             tmp = head.next
