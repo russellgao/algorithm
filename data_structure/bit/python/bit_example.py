@@ -88,4 +88,4 @@ def swap(a: int, b: int) -> (int, int):
 if __name__ == "__main__":
     a = 6
     b = 9
-    c = bit_or(a, b)
+    c = bit_and(a, b)

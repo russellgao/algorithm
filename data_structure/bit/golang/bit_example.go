@@ -35,6 +35,7 @@ func abs(a int) int {
 	return (a ^ i) - i
 }
 
+// 求1的个数
 func count_1(a int) int {
 	count := 0
 	for a != 0 {
@@ -43,6 +44,8 @@ func count_1(a int) int {
 	}
 	return count
 }
+
+// 交换两数
 func swap(a, b int) (int, int) {
 	a ^= b
 	b ^= a
@@ -52,7 +55,7 @@ func swap(a, b int) (int, int) {
 
 func main() {
 	a := 5
-	//b := 3
-	c := bit_not(a)
+	b := 3
+	c := bit_and(a,b)
 	fmt.Println(c)
 }
