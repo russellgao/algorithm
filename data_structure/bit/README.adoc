@@ -258,14 +258,20 @@ a << 1 # ---> 4
 位操作交换两数可以不需要第三个临时变量，虽然普通操作也可以做到，但是没有其效率高
 ```python
 # 普通操作
-def swap(a: int, b: int) ->int:
+def swap(a: int, b: int) ->(int,int):
   a = a + b
   b = a - b
   a = a - b
   return a,b
 
 # 位与操作
-def swap(a: int, b: int) ->int:
+def swap(a: int, b: int) -> (int, int):
+    """
+    交换两个数
+    :param a:
+    :param b:
+    :return:
+    """
     a ^= b  # a = (a^b)
     b ^= a  # b = b ^ a = b ^ a ^ b
     a ^= b  # a = a ^ b = a ^ a ^ b
@@ -291,8 +297,13 @@ func reversal(a int) int {
 }
 ```
 
-```
-def reversal(a: int) -> int :
+```python
+def reversal(a: int) -> int:
+    """
+    求相反数
+    :param a:
+    :return:
+    """
     return ~a + 1
 ```
 
@@ -311,6 +322,11 @@ def abs(a: int) -> int:
 
 ```python
 def abs(a: int) -> int:
+    """
+    求绝对值
+    :param a:
+    :return:
+    """
     i = a >> 31
     result = (a ^ i) - i
     return result
@@ -351,10 +367,15 @@ a = (a >> 8) | (a << 8);
 ```
 
 ```python
-def count_1(a) :
+def count_1(a: int) -> int:
+    """
+    计算数值的二进制表示的1的数量
+    :param a:
+    :return:
+    """
     count = 0
-    while(a) :
-        a = a & a-1
+    while (a):
+        a = a & a - 1
         count += 1
     return count
 ```
