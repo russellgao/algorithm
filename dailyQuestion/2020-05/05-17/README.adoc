@@ -32,7 +32,7 @@ https://leetcode-cn.com/problems/insert-into-bits-lcci/
   * 再把M的i～最高位置为0: 把M右移i位再左移i位,再与N求异或
   * 上面两步求 或 即把i～j 位全部置为0
 - 把M左移i位
-- 返回M+N
+- 返回M | N
 
 ```go
 func insertBits(N int, M int, i int, j int) int {
