@@ -53,6 +53,17 @@ func swap(a, b int) (int, int) {
 	return a, b
 }
 
+// 求和
+func add(a int, b int) int {
+    for b != 0 {
+        sum := a ^ b
+        carry := (a & b) << 1
+        a = sum
+        b = carry
+    }
+    return a
+}
+
 func main() {
 	a := 5
 	b := 3

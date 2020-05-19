@@ -84,8 +84,22 @@ def swap(a: int, b: int) -> (int, int):
     a ^= b  # a = a ^ b = a ^ a ^ b
     return a, b
 
+def add(a: int, b: int) -> int:
+    """
+    两数求和
+    :param a:
+    :param b:
+    :return:
+    """
+    a &= 0xFFFFFFFF
+    b &= 0xFFFFFFFF
+    while b != 0:
+        carry = a & b
+        a ^= b
+        b = ((carry) << 1) & 0xFFFFFFFF
+    return a if a < 0x80000000 else ~(a ^ 0xFFFFFFFF)
 
 if __name__ == "__main__":
-    a = 6
+    a = 0xFFFFFFFF
     b = 9
     c = bit_and(a, b)

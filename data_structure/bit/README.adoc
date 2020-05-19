@@ -380,6 +380,20 @@ def count_1(a: int) -> int:
     return count
 ```
 
+=== 求和
+两数求和
+```go
+func add(a int, b int) int {
+    for b != 0 {
+        sum := a ^ b
+        carry := (a & b) << 1
+        a = sum
+        b = carry
+    }
+    return a
+}
+```
+
 == 常用的特殊的数
 0xaaaaaaaa = 10101010101010101010101010101010 (偶数位为1，奇数位为0）
 
@@ -393,3 +407,4 @@ def count_1(a: int) -> int:
 
 0xf0f0f0f0 = 11110000111100001111000011110000 (0和1每隔四位交替出现)
 
+0xffffffff = 11111111111111111111111111111111
