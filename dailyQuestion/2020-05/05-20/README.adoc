@@ -59,9 +59,9 @@ def findTheLongestSubstring(s: str) -> int:
         elif tmp == "o":
             status ^= 1 << 2
         elif tmp == "i":
-            tmp ^= 1 << 3
+            status ^= 1 << 3
         elif tmp == "u":
-            tmp ^= 1 << 4
+            status ^= 1 << 4
         if pos[status] >= 0:
             result = max(result, i + 1 - pos[status])
         else:
