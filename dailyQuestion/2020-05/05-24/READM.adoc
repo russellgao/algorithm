@@ -22,7 +22,7 @@
 https://leetcode-cn.com/problems/minimum-window-substring/
 
 == 知识点
-滑动窗口
+link:../../../data_structure/slideWindow/[滑动窗口]
 
 == 题解
 
