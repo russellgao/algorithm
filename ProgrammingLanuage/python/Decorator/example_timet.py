@@ -8,7 +8,7 @@ def timet(*args, **kwargs) :
     print("装饰器参数 =====")
     for item_a in args :
         print(item_a)
-    for item_k ,item_v in kwargs.iteritems() :
+    for item_k ,item_v in kwargs.items() :
         print(item_k,item_v)
     print("装饰器参数------")
 
