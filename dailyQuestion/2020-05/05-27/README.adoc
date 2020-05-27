@@ -99,4 +99,3 @@ def detectCycle(head: ListNode) -> ListNode:
 
 image:images/7.jpg[]
 
-
