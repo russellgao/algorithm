@@ -7,7 +7,7 @@ def findDuplicate(nums: [int]) -> int :
     result = 0
     while (n-1) >> bit_max == 0 :
         bit_max -= 1
-    for bit in range(bit_max) :
+    for bit in range(bit_max+1) :
         x, y = 0 ,0
         for i in range(n) :
             if nums[i] & 1 << bit > 0 :
@@ -15,7 +15,7 @@ def findDuplicate(nums: [int]) -> int :
             if i > 0 and i & 1 << bit > 0 :
                 y += 1
         if x > y :
-            result |= 1 << bit
+            result |= (1 << bit)
     return result
 
 
