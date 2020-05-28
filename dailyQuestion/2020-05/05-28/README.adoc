@@ -31,7 +31,7 @@ https://leetcode-cn.com/problems/decode-string/
 
 == 题解
 === 栈
-image:images/1.jpg
+image:images/1.jpg[]
 
 ```python
 def decodeString(s: str) -> str:
