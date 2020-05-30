@@ -1,0 +1,17 @@
+= 多线程相关
+:toc:
+:toc-title:
+:toclevels:
+:sectnums:
+
+== 知识点
+- 主线程的执行速度快于子线程
+- 通过 setDaemon() 可以设置是否位守护线程，例子参见: link:threading_daemon.py[]
+    - 如果不设置或者设置为 `False` ,不是守护线程，会阻塞主线的运行
+    - 如果设置为 `True` 则为守护线程，当主线程执行结束后子线程就会立即结束
+- 通过 `join` 函数 ，可以让线程阻塞，等待一个线程执行完再执行后一个线程， 例子参见: link:threading_join.py[]
+- `Lock` 线程锁，线程执行之前需要先获取锁，执行完之后再释放锁， 例子参见: link:threading_lock.py[]
+
+== 例子
+- https://leetcode-cn.com/problems/print-in-order/submissions/
+-
