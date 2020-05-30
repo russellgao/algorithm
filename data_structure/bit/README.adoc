@@ -394,6 +394,37 @@ func add(a int, b int) int {
 }
 ```
 
+=== 比特位计数
+给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
+
+示例 1:
+```
+输入: 2
+输出: [0,1,1]
+```
+示例 2:
+```
+输入: 5
+输出: [0,1,1,2,1,2]
+```
+
+```python
+def countBits(num: int) -> [int]:
+    result = [0] * (num + 1)
+    for i in range(1, num + 1):
+        result[i] = result[i & i - 1] + 1
+    return result
+```
+
+```go
+func countBits(num int) []int {
+    result := make([]int, num+1)
+    for i := 1; i < num+1 ; i ++ {
+        result[i] = result[i & (i-1)] + 1
+    }
+    return result
+}
+```
 == 常用的特殊的数
 0xaaaaaaaa = 10101010101010101010101010101010 (偶数位为1，奇数位为0）
 
