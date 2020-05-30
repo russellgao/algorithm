@@ -14,4 +14,18 @@
 
 == 例子
 - https://leetcode-cn.com/problems/print-in-order/submissions/
--
+
+== 使用信号量进行同步
+- https://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/chapter2/08_Thread_synchronization_with_semaphores.html
+
+=== 介绍
+信号量由E.Dijkstra发明并第一次应用在操作系统中，信号量是由操作系统管理的一种抽象数据类型，用于在多线程中同步对共享资源的使用。本质上说，信号量是一个内部数据，用于标明当前的共享资源可以有多少并发读取。
+
+同样的，在threading模块中，信号量的操作有两个函数，即 acquire() 和 release() ，解释如下：
+
+- 每当线程想要读取关联了信号量的共享资源时，必须调用 acquire() ，此操作减少信号量的内部变量, 如果此变量的值非负，那么分配该资源的权限。如果是负值，那么线程被挂起，直到有其他的线程释放资源。
+- 当线程不再需要该共享资源，必须通过 release() 释放。这样，信号量的内部变量增加，在信号量等待队列中排在最前面的线程会拿到共享资源的权限。
+
+
+
+
