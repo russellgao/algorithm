@@ -28,6 +28,7 @@ image:images/histogram_area.png[]
 - https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
 
 == 知识点
+- 单调栈
 
 == 题解
 === 暴力解法
