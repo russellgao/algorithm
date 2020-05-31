@@ -23,12 +23,6 @@ def isSymmetric(root: TreeNode) -> bool:
 
 
 if __name__ == "__main__":
-
-    a = [12, 3, 4, 5, 6]
-    b = a[2:]
-    for i in range(5):
-        continue
-
     root = TreeNode(1)
     root.left = TreeNode(2)
     root.right = TreeNode(2)
