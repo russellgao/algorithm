@@ -17,6 +17,44 @@
 == 前中后序
 === 前序
 根节点排最先，然后同级先左后右
+通过迭代和递归遍历参考如下:
+
+递归
+
+```python
+def preorderTraversal(root: TreeNode) ->[int]:
+    result = []
+    if not root:
+        return result
+    result.append(root.val)
+    left = preorderTraversal(root.left)
+    result.extend(left)
+    right = preorderTraversal(root.right)
+    result.extend(right)
+    return result
+```
+
+
+迭代
+
+```python
+def preorderTraversal(root: TreeNode) ->[int]:
+    result = []
+    if not root:
+        return result
+    queue = [root]
+    while queue:
+        root = queue.pop()
+        if root:
+            result.append(root.val)
+            if root.right:
+                queue.append(root.right)
+            if root.left:
+                queue.append(root.left)
+    return result
+
+```
+
 
 === 中序
 先左后根最后右
@@ -60,6 +98,43 @@ def inorderTraversal(root: TreeNode) ->[int]:
 
 === 后序
 先左后右最后根
+
+通过迭代和递归遍历参考如下:
+
+递归
+
+```python
+def postorderTraversal(root: TreeNode) -> [int]:
+    result = []
+    if not root:
+        return result
+    left = postorderTraversal(root.left)
+    result.extend(left)
+    right = postorderTraversal(root.right)
+    result.extend(right)
+    result.append(root.val)
+    return result
+```
+
+
+迭代
+
+```python
+def postorderTraversal(root: TreeNode) ->[int]:
+    result = []
+    queue = [root]
+    while queue:
+        root = queue.pop()
+        if root:
+            result.append(root.val)
+            if root.left:
+                queue.append(root.left)
+            if root.right:
+                queue.append(root.right)
+    return result[::-1]
+
+
+```
 
 == 堆和普通树的区别
 节点的顺序。在二叉搜索树中，左子节点必须比父节点小，右子节点必须必比父节点大。但是在堆中并非如此。在最大堆中两个子节点都必须比父节点小，而在最小堆中，它们都必须比父节点大。
