@@ -7,19 +7,18 @@ class TreeNode:
         self.left = None
         self.right = None
 
-# 递归
+# 迭代
 def inorderTraversal(root: TreeNode) ->[int]:
     result = []
-    if not root:
-        return []
-    left = inorderTraversal(root.left)
-    if left:
-        result.extend(left)
-    result.append(root.val)
-    right = inorderTraversal(root.right)
-    result.extend(right)
+    queue = []
+    while root or queue :
+        while root :
+            queue.append(root)
+            root = root.left
+        node = queue.pop()
+        result.append(node.val)
+        root = node.right
     return result
-
 
 if __name__ == "__main__":
     root = TreeNode(1)
