@@ -6,7 +6,7 @@ class ListNode:
         self.val = x
         self.next = None
 
-# 递归
+# 迭代
 def sortList(head: ListNode) -> ListNode:
     h, length, intv = head, 0, 1
     while h:
