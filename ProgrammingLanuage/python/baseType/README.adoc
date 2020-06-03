@@ -1,0 +1,21 @@
+= python  基本数据类型的用法
+:toc:
+:toclevels: 5
+:toc-title: 目录
+:sectnums:
+
+== 基本数据类型
+- number
+* int
+* float
+* bool
+* complex
+- String
+
+
+== 容器类型
+- list
+- set
+- dict
+- tuple
+
