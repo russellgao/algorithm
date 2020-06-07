@@ -88,3 +88,57 @@ def ladderLength(beginWord: str, endWord: str, wordList: [str]) -> int:
 ```
 
 image:images/5.jpg[]
+
+=== 双向广度优先搜索
+
+image:images/6.jpg[]
+image:images/7.jpg[]
+image:images/8.jpg[]
+
+```python
+from collections import defaultdict, deque
+
+
+class Solution:
+    def __init__(self):
+        self.length = 0
+        self.all_combine_dict = defaultdict(list)
+
+    def visitWordNode(self, queue, visited, other_visited):
+        current_word, level = queue.popleft()
+        for i in range(self.length):
+            intermediate_word = current_word[:i] + "*" + current_word[i + 1:]
+            for word in self.all_combine_dict[intermediate_word]:
+                if word in other_visited:
+                    return level + other_visited[word]
+                if word not in visited:
+                    visited[word] = level + 1
+                    queue.append((word, level + 1))
+        return None
+
+    def ladderLength(self, beginWord: str, endWord: str, wordList: [str]) -> int:
+        result = 0
+        if endWord not in wordList:
+            return 0
+        self.length = len(beginWord)
+        for item in wordList:
+            for i in range(self.length):
+                self.all_combine_dict[item[:i] + "*" + item[i + 1:]].append(item)
+        begin_queue = deque([(beginWord, 1)])
+        end_queue = deque([(endWord, 1)])
+
+        begin_visited = {beginWord: 1}
+        end_visited = {endWord: 1}
+
+        while begin_queue and end_queue:
+            result = self.visitWordNode(begin_queue, begin_visited, end_visited)
+            if result:
+                return result
+            result = self.visitWordNode(end_queue, end_visited, begin_visited)
+            if result:
+                return result
+        return 0
+```
+
+image:images/9.jpg[]
+
