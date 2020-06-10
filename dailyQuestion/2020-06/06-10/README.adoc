@@ -1,0 +1,81 @@
+= 分割链表
+:toc:
+:toc-title: 目录
+:toclevels:
+:sectnums:
+
+== 说明
+编写程序以 x 为基准分割链表，使得所有小于 x 的节点排在大于或等于 x 的节点之前。如果链表中包含 x，x 只需出现在小于 x 的元素之后(如下所示)。分割元素 x 只需处于“右半部分”即可，其不需要被置于左右两部分之间。
+
+示例:
+```
+输入: head = 3->5->8->5->10->2->1, x = 5
+输出: 3->1->2->10->5->5->8
+```
+
+== 参考
+https://leetcode-cn.com/problems/partition-list-lcci/
+
+== 题解
+新建两个链表，一个存放小于x，另一个存放大于等于x，再将两个链表进行拼接即可
+
+```python
+def partition(head: ListNode, x: int) -> ListNode:
+    l1 = ListNode(0)
+    l2 = ListNode(0)
+    l1_pre = l1
+    l2_pre = l2
+
+    while head:
+        if head.val < x:
+            l1.next = ListNode(head.val)
+            l1 = l1.next
+        else:
+            l2.next = ListNode(head.val)
+            l2 = l2.next
+        head = head.next
+    l1_pre = l1_pre.next
+    l2_pre = l2_pre.next
+    if not l1_pre:
+        return l2_pre
+    result = l1_pre
+    while l1_pre.next:
+        l1_pre = l1_pre.next
+    l1_pre.next = l2_pre
+    return result
+```
+
+```go
+func partition(head *ListNode, x int) *ListNode {
+	l1 := &ListNode{Val: 0}
+	l2 := &ListNode{Val: 0}
+	l1_pre := l1
+	l2_pre := l2
+	for head != nil {
+		if head.Val < x {
+			l1.Next = &ListNode{Val: head.Val}
+			l1 = l1.Next
+		} else {
+			l2.Next = &ListNode{Val: head.Val}
+			l2 = l2.Next
+		}
+		head = head.Next
+	}
+	l1_pre = l1_pre.Next
+	l2_pre = l2_pre.Next
+	if l1_pre == nil {
+		return l2_pre
+	}
+	result := l1_pre
+	for l1_pre.Next != nil {
+		l1_pre = l1_pre.Next
+	}
+	l1_pre.Next = l2_pre
+	return result
+}
+```
+
+复杂度:
+
+- 时间复杂度: o(n), 需要遍历一次
+- 空间复杂度: o(1)
