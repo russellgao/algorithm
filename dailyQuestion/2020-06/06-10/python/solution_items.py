@@ -5,28 +5,27 @@ class ListNode:
 
 
 def partition(head: ListNode, x: int) -> ListNode:
-    l1 = ListNode(0)
-    l2 = ListNode(0)
-    l1_pre = l1
-    l2_pre = l2
-
-    while head:
-        if head.val < x:
+    l1 = l1_pre = ListNode(0)
+    l2 = l2_pre = ListNode(0)
+    while head :
+        if head.val < x :
             l1.next = ListNode(head.val)
             l1 = l1.next
-        else:
+        else :
             l2.next = ListNode(head.val)
             l2 = l2.next
         head = head.next
     l1_pre = l1_pre.next
     l2_pre = l2_pre.next
-    if not l1_pre:
+    if not l1_pre :
         return l2_pre
     result = l1_pre
-    while l1_pre.next:
+    while l1_pre.next :
         l1_pre = l1_pre.next
     l1_pre.next = l2_pre
     return result
+
+
 
 
 if __name__ == "__main__":
@@ -39,4 +38,6 @@ if __name__ == "__main__":
     x = 3
 
     result = partition(head, x)
-    print(result)
+    while result :
+        print(result.val)
+        result = result.next
