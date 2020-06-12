@@ -10,7 +10,8 @@ def dailyTemperatures(T: [int]) -> [int]:
         stack.append(i)
     return result
 
-if __name__ == "__main__" :
-    T = [73,74,75,71,69,72,76,73]
+
+if __name__ == "__main__":
+    T = [73, 74, 75, 71, 69, 72, 76, 73]
     result = dailyTemperatures(T)
     print(result)
