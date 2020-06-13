@@ -1,0 +1,52 @@
+= 变位词组
+:toc:
+:toc-title: 目录
+:toclevels: 5
+:sectnums:
+
+== 说明
+编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。
+
+注意：本题相对原题稍作修改
+
+示例:
+```
+输入: ["eat", "tea", "tan", "ate", "nat", "bat"],
+输出:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+```
+说明：
+
+- 所有输入均为小写字母。
+- 不考虑答案输出的顺序。
+
+== 参考
+https://leetcode-cn.com/problems/group-anagrams-lcci/
+
+== 题解
+=== 对字符串排序后用hashmap
+对strs 中的每一项进行排序，排序之后用做map的key，value是一个list
+
+```
+def groupAnagrams(strs: [str]) -> [[str]]:
+    if not strs :
+        return [[]]
+    result_tmp = {}
+    for item in strs :
+        tmp = "".join(sorted(item))
+        if tmp in result_tmp :
+            result_tmp[tmp].append(item)
+        else :
+            result_tmp[tmp] = [item]
+    result = list(result_tmp.values())
+    return result
+```
+
+复杂度:
+
+- 时间复杂度: O(n*mlogm), n是字符串数组的长度，m是数组中数据的长度，因为要进行一个遍历，对于具体的项需要经过一次排序
+- 空间复杂度: O(n) , 需要一个map 存储中间结果
