@@ -30,5 +30,37 @@
 - 动态规划
 
 == 题解
+=== 动态规划
+在原数组上进行动态规划 ,动态规划公式为:
 
+grid[i][j] = grid[i][j] + min(grid[i][j-1],gird[i-1][j]) i > 0,j > 0
+
+需要考虑一下边界条件:
+
+- 当i,j 同时为0时, 是起点不用动态规划
+- 当i 等于0 时, grid[i][j] = grid[i][j] + grid[i][j-1]
+- 当j 等于0 时, grid[i][j] = grid[i][j] + gird[i-1][j]
+
+```
+def minPathSum(grid: [[int]]) -> int:
+    if not grid :
+        return 0
+    m = len(grid)
+    n = len(grid[0])
+    for i in range(m) :
+        for j in range(n) :
+            if j == 0 and i == 0 :
+                continue
+            if j == 0 :
+                grid[i][j] = grid[i-1][j] + grid[i][j]
+            elif i == 0 :
+                grid[i][j] = grid[i][j-1] + grid[i][j]
+            else :
+                grid[i][j] = grid[i][j] + min(grid[i][j-1],grid[i-1][j])
+```
+
+复杂度分析
+
+时间复杂度 ：O(mn)。遍历整个矩阵恰好一次。
+空间复杂度 ：O(1)O。不需要额外空间。
 
