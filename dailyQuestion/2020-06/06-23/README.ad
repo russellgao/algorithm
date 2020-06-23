@@ -1,0 +1,89 @@
+= 二进制求和
+:toc-title: 目录
+:toc:
+:toclevels: 5
+:sectnums:
+
+== 说明
+给你两个二进制字符串，返回它们的和（用二进制表示）。
+
+输入为 非空 字符串且只包含数字 1 和 0。
+
+ 
+
+示例 1:
+```
+输入: a = "11", b = "1"
+输出: "100"
+```
+示例 2:
+```
+输入: a = "1010", b = "1011"
+输出: "10101"
+```
+
+提示：
+
+每个字符串仅由字符 '0' 或 '1' 组成。
+1 <= a.length, b.length <= 10^4
+字符串如果不是 "0" ，就都不含前导零。
+
+== 参考
+- https://leetcode-cn.com/problems/add-binary/submissions/
+
+== 知识点
+- 位运算
+
+== 题解
+=== 转换为10进制直接相加
+
+image:images/1.jpg[]
+
+```python
+def addBinary(a: str, b: str) -> str:
+    a = int(a,2)
+    b = int(b,2)
+    c = a + b
+    return bin(c)[2:]
+```
+
+=== 位运算
+image:images/2.jpg[]
+
+```python
+def addBinary(a: str, b: str) -> str:
+    a = int(a, 2)
+    b = int(b, 2)
+    while b:
+        result = a ^ b
+        carry = (a & b) << 1
+        a = result
+        b = carry
+    return bin(a)[2:]
+```
+
+image:images/3.jpg[]
+
+
+=== 模拟
+image:images/4.jpg[]
+
+```python
+def addBinary(a: str, b: str) -> str:
+    n_a = len(a)
+    n_b = len(b)
+    max_n = max(n_a, n_b)
+    a = a.rjust(max_n, "0")
+    b = b.rjust(max_n, "0")
+    jin_bit = 0
+    result = ""
+    for i in range(max_n - 1, -1, -1):
+        tmp_a = int(a[i])
+        tmp_b = int(b[i])
+        tmp = tmp_a + tmp_b + jin_bit
+        result = "{}{}".format(tmp % 2, result)
+        jin_bit = tmp // 2
+    if jin_bit != 0:
+        result = "{}{}".format(1, result)
+    return result
+```
