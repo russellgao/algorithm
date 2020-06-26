@@ -26,6 +26,9 @@
 
 如果不得使用临时缓冲区，该怎么解决？
 
+== 参考
+- https://leetcode-cn.com/problems/word-break/
+
 == 题解
 === 用临时缓存 list or map 保存已经出现的
 
