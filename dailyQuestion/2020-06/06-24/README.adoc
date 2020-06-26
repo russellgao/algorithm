@@ -1,0 +1,51 @@
+= 有A,B两个文件，各存放1亿条URL，在可接受的时间内尽可能的找出A,B文件共同的URL
+:toc:
+:toc-title: 目录
+:toclevels: 5
+:sectnums:
+
+== 说明
+有A,B两个文件，各存放1亿条URL，在可接受的时间内尽可能的找出A,B文件共同的URL
+
+== 题解
+假设每个URL为64字节，则一个文件总体大小为 64（B） * 1 亿 ~= 6G ，两个文件全部加载到内存中是不现实的，
+则可以采取分而治之的方法
+
+- 遍历文件a，对每个url求取hash(url) % 20，然后根据所取得的值将url分别存储到20个小文件（记为a0,a1,...a20）中。这样每个小文件的大约为300M。
+- 遍历文件b，对每个url求取hash(url) % 20，然后根据所取得的值将url分别存储到20个小文件（记为a0,a1,...a20）中。这样每个小文件的大约为300M。
+- 然后求取每个小文件中相同url，把相同的url写到文件中
+
+题解:
+
+```python
+def common_url(filenameA, filenameB) :
+    """
+    输入为两个文件名,输出为 result.txt
+    :param filenameA:
+    :param filenameB:
+    :return:
+    """
+    filenames = []
+    result_filename = "result.txt"
+    def hash_url(filename) :
+        with open(filename) as fp :
+            for line in fp.readlines() :
+                _filename = str(hash(line) % 20)
+                filenames.append(_filename)
+                with open(_filename, "a") as _fp :
+                    _fp.write(line)
+    hash_url(filenameA)
+    hash_url(filenameB)
+    with open(result_filename,"w") as fp :
+        for _tmp_file in filenames :
+            tmp_list = []
+            with open(_tmp_file) as tmp_fp :
+                for tmp_line in tmp_fp.readlines() :
+                    if tmp_line in tmp_list :
+                        if tmp_line and tmp_line != os.linesep :
+                            fp.write(tmp_line)
+                    else :
+                        tmp_list.append(tmp_line)
+```
+
+可以按照输入文件的大小采取不同的分治策略
