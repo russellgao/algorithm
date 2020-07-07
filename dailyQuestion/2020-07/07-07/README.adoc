@@ -63,4 +63,16 @@ def hasPathSum(root: TreeNode, sum: int) -> bool:
 空间复杂度：O(N)，其中 N 是树的节点数。空间复杂度主要取决于队列的开销，队列中的元素个数不会超过树的节点数。
 
 === 递归
+image:images/1.jpg[]
 
+```python
+def hasPathSum(root: TreeNode, sum: int) -> bool:
+    if not root:
+        return False
+    if not root.left and not root.right:
+        return root.val == sum
+    return hasPathSum(root.left, sum - root.val) or hasPathSum(root.right, sum - root.val)
+
+```
+
+image:images/2.jpg[]
