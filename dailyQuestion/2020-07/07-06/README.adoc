@@ -43,4 +43,33 @@ image:images/1.png[]
 == 题解
 === 动态规划
 
+image:images/2.jpg[]
+
+```go
+func uniquePathsWithObstacles(obstacleGrid [][]int) int {
+	n, m := len(obstacleGrid), len(obstacleGrid[0])
+	f := make([]int, m)
+	if obstacleGrid[0][0] == 0 {
+		f[0] = 1
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			if obstacleGrid[i][j] == 1 {
+				f[j] = 0
+				continue
+			}
+			if j-1 >= 0 && obstacleGrid[i][j-1] == 0 {
+				f[j] += f[j-1]
+			}
+		}
+	}
+	return f[len(f)-1]
+}
+```
+
+复杂度分析
+
+- 时间复杂度：O(nm)，其中 n 为网格的行数，m 为网格的列数。我们只需要遍历所有网格一次即可。
+- 空间复杂度：O(m)。利用滚动数组优化，我们可以只用 O(m) 大小的空间来记录当前行的 f 值。
+
 
