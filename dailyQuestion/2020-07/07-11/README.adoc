@@ -1,1 +1,65 @@
+=  部分排序
+:toc:
+:toclevels: 5
+:toc-title:
+:sectnums:
+
+== 说明
+给定一个整数数组，编写一个函数，找出索引m和n，只要将索引区间[m,n]的元素排好序，整个数组就是有序的。注意：n-m尽量最小，也就是说，找出符合条件的最短序列。函数返回值为[m,n]，若不存在这样的m和n（例如整个数组是有序的），请返回[-1,-1]。
+
+示例：
+```
+输入： [1,2,4,7,10,11,7,12,6,7,16,18,19]
+输出： [3,9]
+提示：
+
+0 <= len(array) <= 1000000
+
+```
+
+== 参考
+- https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/
+
+== 题解
+原理：如果左侧最大值大于中间的最小值，则一定会被中间序列包括；同理，如果右侧最小值大于中间的最大值，则一定会被中间序列包括。
+
+一遍遍历 + 两个指针（两次扫描可一次遍历完成）
+
+1、从前向后扫描数组，判断当前array[i]是否比max小，是则将last置为当前array下标i，否则更新max;
+
+2、从后向前扫描数组，判断当前array[len - 1 - i]是否比min大，是则将first置位当前下标len - 1 - i，否则更新min;
+
+3、返回{first， last}
+
+
+```go
+func subSort(array []int) []int {
+	n := len(array)
+	first := -1
+	last := -1
+	if n == 0 || n == 1 {
+		return []int{first, last}
+	}
+	min_n := math.MaxInt32
+	max_n := math.MinInt32
+	for i := 0; i < n; i++ {
+		if array[i] >= max_n {
+			max_n = array[i]
+		} else {
+			last = i
+		}
+		if array[n-1-i] <= min_n {
+			min_n = array[n-1-i]
+		} else {
+			first = n - i - 1
+		}
+	}
+	return []int{first, last}
+}
+```
+
+复杂度:
+
+- 时间复杂度: o(N),一次遍历
+- 空间复杂读: o(1)
 
