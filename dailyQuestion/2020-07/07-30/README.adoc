@@ -1,1 +1,66 @@
+= 字母与数字
+:toc:
+:toclevels:
+:toc-title:
+:sectnums:
+
+== 说明
+给定一个放有字符和数字的数组，找到最长的子数组，且包含的字符和数字的个数相同。
+
+返回该子数组，若存在多个最长子数组，返回左端点最小的。若不存在这样的数组，返回一个空数组。
+
+示例 1:
+```
+输入: ["A","1","B","C","D","2","3","4","E","5","F","G","6","7","H","I","J","K","L","M"]
+
+输出: ["A","1","B","C","D","2","3","4","E","5","F","G","6","7"]
+```
+示例 2:
+```
+输入: ["A","A"]
+
+输出: []
+```
+提示：
+
+- array.length <= 100000
+
+== 参考
+- https://leetcode-cn.com/problems/find-longest-subarray-lcci/
+
+
+== 题解
+1，计算前缀和 时间复杂度O(n),空间复杂度O(n) 需要一个辅助数组 其实就是计算 以i下标结尾字母和数字的差值
+
+2，字典 时间复杂度O(n),空间复杂度O(n) 统计 每个前缀和出现第一次的下标 特殊情况 0 ，设第一次出现下标为-1
+
+3，遍历dp数组 时间复杂度O(n)， 找 长度最大的，记录 左下标，右下标 即可
+
+```python
+def findLongestSubarray(array: [str]) -> [str]:
+    if not array:
+        return []
+    dp = [0] * len(array)
+    dp[0] = 1 if (array[0] >= "A" and array[0] <= "Z") or (array[0] >= "a" and array[0] <= "z") else -1
+    for i in range(1, len(array)):
+        dp[i] = dp[i - 1] + 1 if (array[i] >= "A" and array[i] <= "Z") or (array[i] >= "a" and array[i] <= "z") else dp[i - 1] - 1
+    mappings = {0: -1}
+    for i in range(len(dp)):
+        mappings[dp[i]] = mappings.get(dp[i], i)
+    maxlength = 0
+    left = 0
+    right = 0
+    for i in range(len(dp)):
+        if i - mappings[dp[i]] > maxlength:
+            left = mappings[dp[i]]
+            right = i + 1
+            maxlength = right - left
+    return array[left + 1:right]
+
+```
+
+复杂度:
+
+- 时间复杂度 O(n)
+- 空间复杂度O(n)
 
