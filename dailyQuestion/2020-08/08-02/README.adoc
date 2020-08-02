@@ -1,1 +1,175 @@
+= 二叉树展开为链表
+:toc:
+:toc-title:
+:toclevels: 5
+:sectnums:
+
+== 说明
+给定一个二叉树，原地将它展开为一个单链表。
+
+例如，给定二叉树
+```
+    1
+   / \
+  2   5
+ / \   \
+3   4   6
+```
+将其展开为：
+```
+1
+ \
+  2
+   \
+    3
+     \
+      4
+       \
+        5
+         \
+          6
+
+```
+
+== 参考
+- https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
+
+== 题解
+=== 前序遍历
+将二叉树展开为单链表之后，单链表中的节点顺序即为二叉树的前序遍历访问各节点的顺序。因此，可以对二叉树进行前序遍历，获得各节点被访问到的顺序。由于将二叉树展开为链表之后会破坏二叉树的结构，因此在前序遍历结束之后更新每个节点的左右子节点的信息，将二叉树展开为单链表。
+
+递归
+```go
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func flatten(root *TreeNode) {
+	list := preorder(root)
+	for i := 1; i < len(list); i++ {
+		pre, cur := list[i-1], list[i]
+		pre.Left = nil
+		pre.Right = cur
+	}
+}
+
+func preorder(root *TreeNode) []*TreeNode {
+	result := []*TreeNode{}
+	if root == nil {
+		return nil
+	}
+	result = append(result, root)
+	result = append(result, preorder(root.Left)...)
+	result = append(result, preorder(root.Right)...)
+	return result
+}
+```
+
+迭代
+```go
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func flatten(root *TreeNode)  {
+	if root == nil {
+		return
+	}
+	list := []*TreeNode{}
+	stack := []*TreeNode{root}
+	for len(stack) != 0 {
+		node := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if node != nil {
+			list = append(list, node)
+		}
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+		if node.Left != nil {
+			stack = append(stack, node.Left)
+		}
+	}
+
+	for i := 1 ; i < len(list) ; i ++ {
+		pre,cur := list[i-1],list[i]
+		pre.Left = nil
+		pre.Right = cur
+	}
+}
+```
+复杂度分析
+
+时间复杂度：O(n)，其中 n 是二叉树的节点数。前序遍历的时间复杂度是 O(n)，前序遍历之后，需要对每个节点更新左右子节点的信息，时间复杂度也是 O(n)。
+
+空间复杂度：O(n)，其中 n 是二叉树的节点数。空间复杂度取决于栈（递归调用栈或者迭代中显性使用的栈）和存储前序遍历结果的列表的大小，栈内的元素个数不会超过 n，前序遍历列表中的元素个数是 n。
+
+=== 前序遍历和展开同步进行
+image:images/1.jpg[]
+
+```go
+func flatten(root *TreeNode) {
+	if root == nil {
+		return
+	}
+	var pre *TreeNode
+	stack := []*TreeNode{root}
+	for len(stack) != 0 {
+		node := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if pre != nil {
+			pre.Left = nil
+			pre.Right = node
+		}
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+		if node.Left != nil {
+			stack = append(stack, node.Left)
+		}
+		pre = node
+	}
+}
+```
+
+复杂度分析:
+
+- 时间复杂度：O(n)，其中 n 是二叉树的节点数。前序遍历的时间复杂度是 O(n)，前序遍历的同时对每个节点更新左右子节点的信息，更新子节点信息的时间复杂度是 O(1)，因此总时间复杂度是 O(n)。
+- 空间复杂度：O(n)，其中 n 是二叉树的节点数。空间复杂度取决于栈的大小，栈内的元素个数不会超过 n。
+
+=== 寻找前驱节点
+image:images/2.jpg[]
+
+```go
+func flatten(root *TreeNode) {
+	if root == nil {
+		return
+	}
+    var pre *TreeNode
+	stack := []*TreeNode{root}
+	for len(stack) != 0 {
+		node := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if pre != nil {
+			pre.Left = nil
+            pre.Right = node
+		}
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+		if node.Left != nil {
+			stack = append(stack, node.Left)
+		}
+        pre = node
+	}
+}
+```
+复杂度分析
+
+- 时间复杂度：O(n)，其中 n 是二叉树的节点数。展开为单链表的过程中，需要对每个节点访问一次，在寻找前驱节点的过程中，每个节点最多被额外访问一次。
+- 空间复杂度：O(1)。
 
