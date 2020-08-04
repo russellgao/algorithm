@@ -87,4 +87,5 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 
 image:images/4.jpg[]
 
-
+=== 广度优先搜索
+image:images/5.jpg[]
