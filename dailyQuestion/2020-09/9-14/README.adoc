@@ -1,1 +1,49 @@
+= 翻转二叉树
+:toc:
+:toclevels: 5
+:toc-title:
+:sectnums:
+
+== 说明
+翻转一棵二叉树。
+
+示例：
+```
+输入：
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+输出：
+
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+```
+
+== 参考
+- https://leetcode-cn.com/problems/invert-binary-tree/
+
+== 题解
+=== 递归
+这是一道很经典的二叉树问题。显然，我们从根节点开始，递归地对树进行遍历，并从叶子结点先开始翻转。如果当前遍历到的节点 root 的左右两棵子树都已经翻转，那么我们只需要交换两棵子树的位置，即可完成以root 为根节点的整棵子树的翻转。
+
+
+
+```go
+func invertTree(root *TreeNode) *TreeNode {
+    if root == nil {
+        return nil
+    }
+    left := invertTree(root.Right)
+    right := invertTree(root.Left)
+    root.Left = left
+    root.Right = right
+    return root
+}
+```
 
