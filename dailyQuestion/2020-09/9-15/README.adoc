@@ -1,1 +1,52 @@
+= 左叶子之和
+:toc:
+:toclevels: 5
+:toc-title:
+:sectnums:
 
+== 说明
+
+计算给定二叉树的所有左叶子之和。
+
+示例：
+```
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+在这个二叉树中，有两个左叶子，分别是 9 和 15，所以返回 24
+
+
+== 参考
+- https://leetcode-cn.com/problems/sum-of-left-leaves/
+
+== 题解
+
+=== 深度优先
+
+- 递归结束条件: 当节点为nil 时，返回0 即可
+- 求和条件: 当左子节点是叶子节点是加到和里面
+- 左右字数分别进行递归求和
+
+```go
+func sumOfLeftLeaves(root *TreeNode) int {
+    result := 0
+    if root == nil {
+        return result
+    }
+    if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil{
+        result += root.Left.Val
+    }
+    result += sumOfLeftLeaves(root.Left)
+    result += sumOfLeftLeaves(root.Right)
+    return result
+}
+
+```
+
+复杂度分析:
+
+- 时间复杂度: o(n) ,需要遍历每个节点
+- 时间复杂度: o(n) , 和树当深度有关，当树为线性树时空间复杂度达到 n
