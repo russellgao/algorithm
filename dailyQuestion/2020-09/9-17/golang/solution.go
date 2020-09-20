@@ -1,32 +1,15 @@
-= 全排列 II
-:toc:
-:toc-title:
-:toclevels: 5
-:sectnums:
+package main
 
-== 说明
-给定一个可包含重复数字的序列，返回所有不重复的全排列。
+import (
+	"fmt"
+	"sort"
+)
 
-示例:
-```
-输入: [1,1,2]
-输出:
-[
-  [1,1,2],
-  [1,2,1],
-  [2,1,1]
-]
+func main() {
+	result := permuteUnique([]int{2, 1, 1})
+	fmt.Println(result)
+}
 
-```
-
-== 参考
-- https://leetcode-cn.com/problems/permutations-ii/
-
-== 题解
-=== 回溯
-
-
-```go
 func permuteUnique(nums []int) (result [][]int) {
 	sort.Ints(nums)
 	temp := []int{}
@@ -52,6 +35,3 @@ func permuteUnique(nums []int) (result [][]int) {
 	dfs(0)
 	return
 }
-
-```
-
