@@ -1,1 +1,104 @@
+= 357. 计算各个位数不同的数字个数
+:toc:
+:toclevels: 5
+:toc-title:
+:sectnums:
 
+== 说明
+给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x < 10n 。
+
+示例:
+```
+输入: 2
+输出: 91
+解释: 答案应为除去 11,22,33,44,55,66,77,88,99 外，在 [0,100) 区间内的所有数字。
+
+```
+
+== 参考
+- https://leetcode-cn.com/problems/count-numbers-with-unique-digits/
+
+== 题解
+=== 回溯
+
+```go
+
+func countNumbersWithUniqueDigits(n int) int {
+	if n == 0 {
+		return 1
+	}
+	var dfs func(idx int) int
+	used := make([]bool, 10)
+	dfs = func(idx int) int {
+		result := 0
+		if idx == n {
+			return 0
+		}
+		for num := 0; num < 10; num++ {
+			// 剪枝：多位数时，第一个数字不能为0
+			if n >= 2 && idx == 1 && num == 0 {
+				continue
+			}
+			// 剪枝：不能使用用过的数字
+			if used[num] {
+				continue
+			}
+			used[num] = true
+			result += dfs(idx+1) + 1
+			used[num] = false
+		}
+		return result
+	}
+	return dfs(0)
+}
+
+```
+
+复杂度分析:
+
+- 时间复杂度: o(10^n)
+- 空间复杂度: o(n),和递归栈有关
+
+== 动态规划
+
+排列组合：n位有效数字 = 每一位都从 0~9 中选择，且不能以 0 开头
+
+```
+1位数字：0~9                      10
+2位数字：C10-2，且第一位不能是0      9 * 9
+3位数字：C10-3，且第一位不能是0      9 * 9 * 8
+4位数字：C10-4，且第一位不能是0      9 * 9 * 8 * 7
+... ...
+
+```
+
+```go
+func countNumbersWithUniqueDigits(n int) int {
+    if n == 0 {
+        return 1
+    }
+    first ,second := 10, 9
+    for i := 1 ; i < n ; i ++ {
+        second *= 10-i
+        first += second
+    }
+    return first
+}
+```
+
+```
+class Solution:
+    def countNumbersWithUniqueDigits(self, n: int) -> int:
+        if n == 0 :
+            return 1
+        first, second = 10, 9
+        for i in range(1,n) :
+            second *= 10-i
+            first += second
+        return first
+```
+
+复杂度分析 :
+
+- 时间复杂度: o(n), 其中你为输入n的大小，需要从1到 遍历一遍
+- 空间复杂度: o(1),只有两个常量空间
