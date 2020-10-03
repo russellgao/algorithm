@@ -73,3 +73,44 @@ func convertBST(root *TreeNode) *TreeNode {
 ```
 
 image:images/2.jpg[]
+
+=== Morris 遍历
+
+image:images/3.jpg[]
+
+```go
+func getSuccessor(node *TreeNode) *TreeNode {
+    succ := node.Right
+    for succ.Left != nil && succ.Left != node {
+        succ = succ.Left
+    }
+    return succ
+}
+
+func convertBST(root *TreeNode) *TreeNode {
+    sum := 0
+    node := root
+    for node != nil {
+        if node.Right == nil {
+            sum += node.Val
+            node.Val = sum
+            node = node.Left
+        } else {
+            succ := getSuccessor(node)
+            if succ.Left == nil {
+                succ.Left = node
+                node = node.Right
+            } else {
+                succ.Left = nil
+                sum += node.Val
+                node.Val = sum
+                node = node.Left
+            }
+        }
+    }
+    return root
+}
+
+```
+
+image:images/4.jpg[]
