@@ -47,7 +47,7 @@ image:images/tree.png[]
 - 给定的树为二叉搜索树。
 
 == 参考
-
+- https://leetcode-cn.com/problems/convert-bst-to-greater-tree/
 
 == 题解
 === 反序中序遍历
