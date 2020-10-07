@@ -14,7 +14,6 @@ def sortColors(nums: [int]) -> None:
             p0 += 1
         i += 1
 
-
 if __name__ == "__main__" :
     nums = [2,0,2,1,1,0]
     sortColors(nums)
