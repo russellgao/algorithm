@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import functools
 import time
 from datetime import datetime
 
@@ -14,6 +14,7 @@ def timet(*args, **kwargs) :
 
     def outter(func) :
         print("otter=====")
+        @functools.wraps(func)
         def inner(*args, **kwargs) :
             start_time = datetime.now()
             print("inner====")
