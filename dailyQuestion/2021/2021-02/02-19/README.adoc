@@ -1,0 +1,45 @@
+= 错误信息解析
+:toc:
+:toc-title: 目录
+
+```
+# 2. 请根据以下要求编写代码， 输入相应的错误消息输出错误信息(字符串)所处的位置(keypath)及错误信息 (错误信息为 str 对象).
+
+# + 输入以下类似以下数据 data（可输入任意消息体对象，可能嵌套很多层对象但其中的数据对象均是下面数据包含的对象， 总共有字典，列表，str(错误信息)， None）
+
+data = {
+"general": {
+"icon": "这个字段为必填项"
+},
+"roles": [
+None,
+{
+"name": "这个字段不能为空",
+"label": "这个字段不能为空"
+}
+],
+"settings": "这个字段为必填项"
+}
+
+# 请编写代码，不可引入其他第三方库（标准库除外），
+# 如果是数组的元素需要提示索引数标识，可以通过 Index#{index} 拼装.
+
+# + 输出类似于以下数据的结构体
+
+# results = [
+#     (['general', 'icon'], '这个字段为必填项'),
+#     (['roles', 'Index#2', 'name'], '这个字段不能为空'),
+#     (['roles', 'Index#2', 'label'], '这个字段不能为空'),
+#     (['settings'], '这个字段为必填项')
+# ]
+
+for path_keys, error_msg in results:
+    print("%s => %s" % ('.'.join(path_keys), error_msg))
+
+
+# 目的是基于上面的数据， 可以生成以下内容 （这部分不用实现， 只需实现上述函数。）
+# general.icon => 这个字段为必填项
+# roles.Index#2.name => 这个字段不能为空
+# roles.Index#2.label => 这个字段不能为空
+# settings => 这个字段为必填项
+```
