@@ -1,6 +1,142 @@
-= Placeholder
+= map
 :toc:
 :toclevels: 5
 :sectnums:
 :toc-title:
+
+== 说明
+```
+// design and implement a map structure with the following functions.
+// please also write unit test.
+
+type MyMap struct {
+  // TODO: add your own implementation
+  // You can use the default golang map
+}
+
+type MyMaper interface {
+  Put(key, value string)
+  Get(key string) (string, bool)
+  PutAll(value string)
+}
+
+func (m *MyMap) Put(key, value string) {
+  // TODO: implement the put function to set a specfic key to a specific value.
+  // Requirement: need to implement in O(1) time complexity.
+
+}
+
+func (m *MyMap) Get(key string) (string, bool) {
+  // TODO: return the specific map value for the given key. if the key does not exit, return empty with false.
+  // Requirement: need to implement in O(1) time complexity.
+}
+
+func (m *MyMap) PutAll(value string) {
+  // TODO: set all the existing keys in the map to the given value.
+  // Requirement: need to implement in O(1) time complexity.
+}
+```
+
+== 题解
+```
+package main
+
+import "fmt"
+
+func main() {
+	m := MyMap{}
+	m.Put("k1", "v1")
+	m.Put("k2", "v2")
+	m.Put("k3", "v3")
+	m.Put("k4", "v4")
+
+	value, ok := m.Get("k2")
+	fmt.Println(value, ok) // shoud -> v2 true
+
+	value, ok = m.Get("k5") // shoud -> "" false
+	fmt.Println(value, ok)
+
+	m.PutAll("v5")
+	value, ok = m.Get("k1")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	value, ok = m.Get("k2")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	value, ok = m.Get("k3")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	value, ok = m.Get("k4")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	m.Put("k2", "v6")
+	value, ok = m.Get("k1")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	value, ok = m.Get("k2")
+	fmt.Println(value, ok) // shoud -> v6 true
+
+	value, ok = m.Get("k3")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	value, ok = m.Get("k4")
+	fmt.Println(value, ok) // shoud -> v5 true
+
+	fmt.Println()
+}
+
+// design and implement a map structure with the following functions.
+// please also write unit test.
+
+type MyMap struct {
+	// TODO: add your own implementation
+	// You can use the default golang map
+	allValue string
+	flag     map[string]struct{}
+	data     map[string]string
+}
+
+type MyMaper interface {
+	Put(key, value string)
+	Get(key string) (string, bool)
+	PutAll(value string)
+}
+
+func (m *MyMap) Put(key, value string) {
+	// TODO: implement the put function to set a specfic key to a specific value.
+	// Requirement: need to implement in O(1) time complexity.
+	if m.data == nil {
+		m.data = map[string]string{key: value}
+	} else {
+		m.data[key] = value
+	}
+	if m.flag == nil {
+		m.flag = map[string]struct{}{key: {}}
+	} else {
+		m.flag[key] = struct{}{}
+	}
+
+}
+
+func (m *MyMap) Get(key string) (res string, ok bool) {
+	// TODO: return the specific map value for the given key. if the key does not exit, return empty with false.
+	// Requirement: need to implement in O(1) time complexity.
+	res, ok = m.data[key]
+	if !ok {
+		return
+	}
+	if _, fok := m.flag[key]; !fok {
+		res = m.allValue
+	}
+	return
+}
+
+func (m *MyMap) PutAll(value string) {
+	// TODO: set all the existing keys in the map to the given value.
+	// Requirement: need to implement in O(1) time complexity.
+	m.allValue = value
+	m.flag = map[string]struct{}{}
+}
+
+```
 
